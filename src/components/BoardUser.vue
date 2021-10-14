@@ -20,8 +20,9 @@ export default {
     UserService.getUserBoard().then(
       (response) => {
         this.content = response.data;
-        axios
-      .get('http://localhost:8080/user_plants/')
+        
+      axios
+      .get('http://localhost:8080/user_plants/user/' + this.currentUser.id)
       .then(response => (this.content = response.data));
       },
       (error) => {
@@ -33,6 +34,11 @@ export default {
           error.toString();
       }
     );
+  },
+  computed: {
+    currentUser() {
+      return this.$store.state.auth.user;
+    }
   },
 };
 </script>
